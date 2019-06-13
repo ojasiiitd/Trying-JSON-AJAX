@@ -1,15 +1,18 @@
-function validateAJAX()
+function AJAXutil(url)
 {
-    if (this.readyState == 4 && this.status == 200)
+    function validateAJAX()
     {
-        var data = JSON.parse(this.responseText);
-        main1(data)
-    }
-};
-var myReq = new XMLHttpRequest();
-myReq.onreadystatechange = validateAJAX;
-myReq.open("GET", "https://jsonplaceholder.typicode.com/todos/1" , true);
-myReq.send();
+        if (this.readyState == 4 && this.status == 200)
+        {
+            var data = JSON.parse(this.responseText);
+            main1(data)
+        }
+    };
+    var myReq = new XMLHttpRequest();
+    myReq.onreadystatechange = validateAJAX;
+    myReq.open("GET", url , true);
+    myReq.send();
+}
 
 function main1(data)
 {
@@ -22,4 +25,10 @@ function main1(data)
     {
         box.innerHTML += data.title + "<br>";
     }
+}
+
+var url = "https://jsonplaceholder.typicode.com/todos/";
+for(var i=1 ; i<=10 ; i++)
+{
+    AJAXutil(url + i);
 }
