@@ -8,6 +8,7 @@ btn.addEventListener("click" , function()
     if(pressed === 4)
     {
         btn.classList.replace("is-link" , "is-danger");
+        rand.classList.add("has-text-warning");
         pressed = 1;
     }
     var url = "https://learnwebcode.github.io/json-example/animals-" + pressed + ".json";
@@ -45,4 +46,9 @@ function dispRandom(data)
         str += "<br><br>";
     }
     rand.innerHTML += str;
+}
+
+function setup()
+{
+    createElement('h1'  ,"HELLO!");
 }
