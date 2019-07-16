@@ -1,5 +1,5 @@
 var btn = document.getElementById("btn");
-var list = document.querySelector(".postlist");
+var list = document.querySelector("#postlist");
 
 btn.addEventListener("click" , function() 
 {
@@ -30,9 +30,10 @@ function dispRandom(data)
     console.log(posts[0]);
     for(var i=0 ; i<posts.length ; i++)
     {
-        var link = "https://www.reddit.com" + posts[i]["data"]["permalink"];
-        var nextPost = document.createElement("li");
-        nextPost.innerHTML = "<a class=\"has-text-link\" href=" + link + ">" + "Post #" + (i+1) + "</a>";
+        var nextPost = document.createElement("a");
+        nextPost.className = "list-item is-size-4";
+        nextPost["href"] = "https://www.reddit.com" + posts[i]["data"]["permalink"];
+        nextPost.innerHTML = "Post #" + (i+1);
         list.appendChild(nextPost);
     }
 }
