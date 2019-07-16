@@ -1,8 +1,14 @@
 var btn = document.getElementById("btn");
 var list = document.querySelector("#postlist");
+var gotData = false;
 
 btn.addEventListener("click" , function() 
 {
+    if(gotData)
+    {
+        console.log("No more data to fetch");
+        return ;
+    }
     var url = "https://www.reddit.com/r/india/" + ".json";
     var get = new XMLHttpRequest();
     get.open("GET" , url);
@@ -30,10 +36,32 @@ function dispRandom(data)
     console.log(posts[0]);
     for(var i=0 ; i<posts.length ; i++)
     {
-        var nextPost = document.createElement("a");
-        nextPost.className = "list-item is-size-4";
-        nextPost["href"] = "https://www.reddit.com" + posts[i]["data"]["permalink"];
-        nextPost.innerHTML = "Post #" + (i+1);
+        var curpost = posts[i]["data"];
+
+        var nextPost = document.createElement("div");
+        nextPost.className = "list-item";
+        
+        var link = document.createElement("a");
+        link.className = "is-size-4";
+        link["href"] = "https://www.reddit.com" + curpost["permalink"];
+        link.innerHTML = "Post #" + (i+1) + " by : r/" + curpost["author"];
+        nextPost.appendChild(link);
+        
+        var basicInfo = document.createElement("p");
+        var str = "Created : " + unixTimeConverter(curpost["created"]) + "<br>";
+        str += "Type : " + (curpost["link_flair_css_class"] || "Miscellaneous") + "<br>";
+        str += "Upvotes : " + curpost["score"] + "<br>";
+        str += "Description : " + (curpost["title"] || "None") + "<br>";
+        basicInfo.innerHTML = str;
+        nextPost.appendChild(basicInfo);
+        
         list.appendChild(nextPost);
     }
+    gotData = true;
+}
+
+function unixTimeConverter(unixTime)
+{
+    var date = new Date(unixTime * 1000);
+    return(date);
 }
