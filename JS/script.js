@@ -4,14 +4,7 @@ var pressed = 0;
 
 btn.addEventListener("click" , function() 
 {
-    pressed++;
-    if(pressed === 4)
-    {
-        btn.classList.replace("is-link" , "is-danger");
-        rand.classList.add("has-text-warning");
-        pressed = 1;
-    }
-    var url = "https://learnwebcode.github.io/json-example/animals-" + pressed + ".json";
+    var url = "https://www.reddit.com/r/india/" + ".json";
     var get = new XMLHttpRequest();
     get.open("GET" , url);
     get.onload = function() 
@@ -21,31 +14,20 @@ btn.addEventListener("click" , function()
             var dataRec = JSON.parse(get.responseText);
             dispRandom(dataRec);
         }
-        // else
-        // {
-        //     console.log("Site error");
-        // }
+        else
+        {
+            console.log("Site error");
+        }
     };
-    // get.onerror = function() {
-    //     console.log("Server error");
-    // }
+    get.onerror = function() {
+        console.log("Server error");
+    }
     get.send();
 });
 
 function dispRandom(data)
 {
-    var str = "";
-    for(var i=0 ; i<data.length ; i++)
-    {
-        str += "The name of my " + data[i]["species"] + " is <b>" + data[i]["name"] + "</b> and he likes :- <br>";
-        for(var j=0 ; j<data[i]["foods"]["likes"].length ; j++)
-            str += data[i]["foods"]["likes"][j] + ", ";
-        str += "<br> but he dislikes :- <br>";
-        for(var j=0 ; j<data[i]["foods"]["dislikes"].length ; j++)
-            str += data[i]["foods"]["dislikes"][j] + ", ";
-        str += "<br><br>";
-    }
-    rand.innerHTML += str;
+    var posts = data["data"]["children"];
 }
 
 function setup()
