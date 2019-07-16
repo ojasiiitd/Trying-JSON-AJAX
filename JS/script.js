@@ -1,6 +1,5 @@
-var rand = document.getElementById("baxa");
 var btn = document.getElementById("btn");
-var pressed = 0;
+var list = document.querySelector(".postlist");
 
 btn.addEventListener("click" , function() 
 {
@@ -28,9 +27,12 @@ btn.addEventListener("click" , function()
 function dispRandom(data)
 {
     var posts = data["data"]["children"];
-}
-
-function setup()
-{
-    createElement('h1'  ,"HELLO!");
+    console.log(posts[0]);
+    for(var i=0 ; i<posts.length ; i++)
+    {
+        var link = "https://www.reddit.com" + posts[i]["data"]["permalink"];
+        var nextPost = document.createElement("li");
+        nextPost.innerHTML = "<a class=\"has-text-link\" href=" + link + ">" + "Post #" + (i+1) + "</a>";
+        list.appendChild(nextPost);
+    }
 }
